@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+    <title>WiseCar - Vender</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="menu-esquerda">
+            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="logo"></a>
+            </div>
+
+            <nav class="links">
+                <a href="index.html">Início</a>
+                <a href="buscar.html">Buscar</a>
+                <a href="anuncios.html">Anúncios</a>
+                <a href="vender.html">Vender</a>
+                <a href="chat.html">
+                    <button class="btn-contato">Entre em contato</button>
+                </a>
+            </nav>
+        </div>
+        <div class="menu-direita">
+            <div class="dados-usuario"><span id="userInfo"></span></div>
+
+            <a href="login.html">
+                <button class="btn-login" id="btnLogin">Login</button>
+            </a>
+            <a href="cadastro.html">
+                <button class="btn-cadastro-header">Cadastro</button>
+            </a>
+
+            <a href="sobre.html">
+                <button class="btn-sobrenos">Sobre nós</button>
+            </a>
+        </div>
+
+    </header>
+
+
+    <main class="container main-area" style="padding-bottom: 120px;">
+        <section class="wizard-card">
+            <form id="wizardForm" class="wizard">
+                <div class="step" data-step="0">
+                    <h1 class="title">
+                        Adicione as fotos — é o <span class="accent">primeiro passo</span><br />para vender rápido!
+                    </h1>
+                    <p class="subtitle">Até 20 fotos nos formatos JPG, GIF, PNG, HEIC ou WEBP.</p>
+
+                    <div class="dropzone" id="dropzone">
+                        <p>Arraste as fotos para cá ou</p>
+                        <button type="button" class="outline" id="pickFiles">Clique para adicionar as fotos</button>
+                        <input id="fileInput" type="file" accept="image/*" multiple style="display:none" />
+                        <div id="preview" class="preview-grid"></div>
+                    </div>
+                    <p class="hint">
+                        * Dica quanto mais fotos você adicionar mais atenção e visibilidade seu anúncio terá!
+                    </p>
+                </div>
+
+                <div class="step" data-step="1" style="display:none">
+                    <h2 class="section-question">Qual veículo você quer anunciar?</h2>
+                    <p class="section-note">Os itens com (*) são obrigatórios</p>
+                    <label class="field-label">Marca *</label>
+                    <input type="text" id="marca" placeholder="Ex: Fiat, Volkswagen, Toyota..." />
+                </div>
+
+                <div class="step" data-step="2" style="display:none">
+                    <h2 class="section-question">Qual veículo você quer anunciar?</h2>
+                    <p class="section-note">Os itens com (*) são obrigatórios</p>
+                    <label class="field-label">Modelo *</label>
+                    <input type="text" id="modelo" placeholder="Ex: Uno, Gol, Corolla..." />
+                </div>
+
+                <div class="step" data-step="3" style="display:none">
+                    <h2 class="section-question">Qual veículo você quer anunciar?</h2>
+                    <p class="section-note">Os itens com (*) são obrigatórios</p>
+                    <label class="field-label">Ano *</label>
+                    <input type="number" id="ano" placeholder="Ex: 2018" min="1900" max="2099" />
+                </div>
+
+                <div class="step" data-step="4" style="display:none">
+                    <h2 class="section-question">Qual veículo você quer anunciar?</h2>
+                    <p class="section-note">Os itens com (*) são obrigatórios</p>
+                    <label class="field-label">Quilometragem (km) *</label>
+                    <input type="number" id="quilometragem" placeholder="Ex: 85000" min="0" />
+                    <label class="field-label">Tipo *</label>
+                    <input type="text" id="tipo" placeholder="Ex: Hatch, Sedan, SUV..." />
+                    <label class="field-label">Cilindradas *</label>
+                    <input type="text" id="cilindradas" placeholder="Ex: 1.0, 2.0..." />
+                    <label class="field-label">Cor *</label>
+                    <input type="text" id="cor" placeholder="Ex: Branco, Preto..." />
+                    <label class="field-label">Combustível *</label>
+                    <input type="text" id="combustivel" placeholder="Ex: Gasolina, Flex, Diesel..." />
+                </div>
+
+                <div class="step" data-step="5" style="display:none">
+                    <h2 class="section-question">Qual veículo você quer anunciar?</h2>
+                    <p class="section-note">Os itens com (*) são obrigatórios</p>
+                    <label class="field-label">Preço (R$) *</label>
+                    <input type="number" id="preco" placeholder="Ex: 45000" min="0" step="0.01" />
+
+                    <label class="field-label">Descrição</label>
+                    <textarea id="descricao" rows="6"
+                        placeholder="Escreva uma breve descrição sobre o veículo..."></textarea>
+                </div>
+
+                <div class="step" data-step="6" style="display:none">
+                    <h2 class="section-question">Revisão do Anúncio</h2>
+                    <p class="section-note">Confirme os dados antes de publicar</p>
+                    <div id="resumoAnuncio" class="resumo-anuncio">
+                        <!-- Os dados serão preenchidos via JavaScript -->
+                    </div>
+                </div>
+
+                <div class="wizard-footer">
+                    <button type="button" id="voltar" class="ghost">Voltar</button>
+                    <button type="button" id="avancar" class="primary">Avançar</button>
+                </div>
+            </form>
+
+            <div class="bottom-progress" style="position: relative; z-index: 1000;">
+                <div id="progressInner" class="progress-inner"></div>
+            </div>
+        </section>
+
+        <aside class="illustration">
+            <div class="avatar-check">
+                <img src="images/mulher-v.png" alt="Ilustração" class="illustration-img" />
+            </div>
+        </aside>
+    </main>
+
+   <footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-column">
+      <h3>Categorias</h3>
+      <ul>
+        <li><a href="#">Caminhonetes</a></li>
+        <li><a href="#">Elétricos</a></li>
+        <li><a href="#">Hatchbacks</a></li>
+        <li><a href="#">Luxo</a></li>
+        <li><a href="#">Novos</a></li>
+        <li><a href="#">SUVs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Atendimento ao cliente</h3>
+      <ul>
+        <li><a href="chat.html">Contate-nos</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Métodos de pagamento</h3>
+      <ul>
+        <li><a>Cartão de crédito</a></li>
+        <li><a>Boleto bancário</a></li>
+        <li><a>Pix</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/login-frontend.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = sessionStorage.getItem('usuarioCorrente');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+    <script src="assets/js/vender.js"></script>
+</body>
+
+</html>

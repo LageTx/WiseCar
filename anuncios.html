@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+  <title>Wise Car - Anúncios</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ===== FILTRO DE ANÚNCIOS ===== */
+.anuncios-filtro {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Campo principal */
+.input-busca {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.anuncios-filtro input:focus {
+  outline: none;
+  border-color: #F57C00;
+}
+
+/* Linha de preços */
+.filtro-linha {
+  display: flex;
+  gap: 12px;
+}
+
+.filtro-linha input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+/* Botões */
+.filtro-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-primario {
+  background: #F57C00;
+  color: #fff;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-primario:hover {
+  background: #e06f00;
+  transform: translateY(-1px);
+}
+
+.btn-secundario {
+  background: #f2f2f2;
+  color: #333;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-secundario:hover {
+  background: #ddd;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .filtro-linha {
+    flex-direction: column;
+  }
+
+  .filtro-acoes {
+    flex-direction: column;
+  }
+
+  .filtro-acoes button {
+    width: 100%;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="menu-esquerda">
+      <div class="logo"><a href="index.html"><img src="images/logo.png" alt="logo"></a>
+      </div>
+
+      <nav class="links">
+        <a href="index.html">Início</a>
+        <a href="buscar.html">Buscar</a>
+        <a href="anuncios.html">Anúncios</a>
+        <a href="vender.html">Vender</a>
+        <a href="chat.html">
+          <button class="btn-contato">Entre em contato</button>
+        </a>
+      </nav>
+    </div>
+    <div class="menu-direita">
+      <div class="dados-usuario"><span id="userInfo"></span></div>
+
+      <a href="login.html">
+        <button class="btn-login" id="btnLogin">Login</button>
+      </a>
+      <a href="cadastro.html">
+        <button class="btn-cadastro-header">Cadastro</button>
+      </a>
+
+      <a href="sobre.html">
+        <button class="btn-sobrenos">Sobre nós</button>
+      </a>
+    </div>
+
+  </header>
+
+  <main class="container anuncios-area">
+    <h2 class="page-title">Anúncios publicados</h2>
+
+<form id="searchForm" class="anuncios-filtro" onsubmit="return false;">
+  <input 
+    type="search" 
+    id="qInput" 
+    placeholder="Pesquisar por marca, modelo ou descrição"
+    aria-label="Pesquisar"
+    class="input-busca"
+  />
+
+  <div class="filtro-linha">
+    <input 
+      type="number" 
+      id="minPriceInput" 
+      placeholder="Preço mín. (R$)" 
+      min="0"
+    />
+    <input 
+      type="number" 
+      id="maxPriceInput" 
+      placeholder="Preço máx. (R$)" 
+      min="0"
+    />
+  </div>
+
+  <div class="filtro-acoes">
+    <button id="searchBtn" class="btn-primario">Buscar</button>
+    <button id="clearBtn" class="btn-secundario">Limpar</button>
+  </div>
+</form>
+
+
+    <div id="anunciosList" class="anuncios-grid">
+    </div>
+
+    <div id="noAds" class="no-ads" style="display:none">
+      <p>Nenhum anúncio encontrado. <a href="vender.html">Crie um agora</a>.</p>
+    </div>
+
+    <div id="loading" style="text-align: center; padding: 20px;">
+      <p>Carregando anúncios...</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-column">
+        <h3>Categorias</h3>
+        <ul>
+          <li><a href="#">Caminhonetes</a></li>
+          <li><a href="#">Elétricos</a></li>
+          <li><a href="#">Hatchbacks</a></li>
+          <li><a href="#">Luxo</a></li>
+          <li><a href="#">Novos</a></li>
+          <li><a href="#">SUVs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Atendimento ao cliente</h3>
+        <ul>
+          <li><a href="chat.html">Contate-nos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Métodos de pagamento</h3>
+        <ul>
+          <li><a>Cartão de crédito</a></li>
+          <li><a>Boleto bancário</a></li>
+          <li><a>Pix</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/login-frontend.js"></script>
+  <script>
+    const API_URL = window.API_URL || 'https://wise-car-vercel.vercel.app';
+
+    // Elementos do formulário de busca
+    const qInput = document.getElementById('qInput');
+    const minPriceInput = document.getElementById('minPriceInput');
+    const maxPriceInput = document.getElementById('maxPriceInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    function applySearchToUrl() {
+      const params = new URLSearchParams(window.location.search);
+      if (qInput && qInput.value) params.set('q', qInput.value.trim()); else params.delete('q');
+      if (minPriceInput && minPriceInput.value) params.set('minPrice', minPriceInput.value); else params.delete('minPrice');
+      if (maxPriceInput && maxPriceInput.value) params.set('maxPrice', maxPriceInput.value); else params.delete('maxPrice');
+      const newUrl = window.location.pathname + (params.toString() ? `?${params.toString()}` : '');
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    function prefillInputsFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      if (qInput) qInput.value = params.get('q') || params.get('carro') || '';
+      if (minPriceInput) minPriceInput.value = params.get('minPrice') || '';
+      if (maxPriceInput) maxPriceInput.value = params.get('maxPrice') || '';
+    }
+
+    async function carregarAnuncios() {
+      const listEl = document.getElementById('anunciosList');
+      const noAdsEl = document.getElementById('noAds');
+      const loadingEl = document.getElementById('loading');
+
+      try {
+        loadingEl.style.display = 'block';
+        listEl.style.display = 'none';
+        noAdsEl.style.display = 'none';
+
+        // Aplicar buscas/filtragens simples via query string (ex: ?q=Uno&minPrice=10000&maxPrice=50000)
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get('q') || params.get('carro');
+        const minPrice = params.get('minPrice') ? parseFloat(params.get('minPrice')) : null;
+        const maxPrice = params.get('maxPrice') ? parseFloat(params.get('maxPrice')) : null;
+
+        // Tentar usar consultas do JSON Server para reduzir carga (q para full-text, preco_gte/preco_lte para faixa)
+        let fetchUrl = `${API_URL}/anuncios`;
+        const serverQ = new URLSearchParams();
+        if (q) serverQ.set('q', q);
+        if (minPrice !== null) serverQ.set('preco_gte', String(minPrice));
+        if (maxPrice !== null) serverQ.set('preco_lte', String(maxPrice));
+        if (serverQ.toString()) fetchUrl += `?${serverQ.toString()}`;
+
+        const response = await fetch(fetchUrl);
+        if (!response.ok) throw new Error('Erro ao carregar anúncios');
+        let ads = await response.json();
+
+        // Ainda aplicar filtro cliente como fallback/segurança (ex.: campos com formatos inesperados)
+        if (q) {
+          const qq = q.toLowerCase();
+          ads = ads.filter(a => (((a.marca || '') + ' ' + (a.modelo || '') + ' ' + (a.descricao || '')).toLowerCase().includes(qq)));
+        }
+        if (minPrice !== null) {
+          ads = ads.filter(a => parseFloat(a.preco || 0) >= minPrice);
+        }
+        if (maxPrice !== null) {
+          ads = ads.filter(a => parseFloat(a.preco || 0) <= maxPrice);
+        }
+
+        loadingEl.style.display = 'none';
+
+        if (!ads.length) {
+          noAdsEl.style.display = 'block';
+          listEl.style.display = 'none';
+        } else {
+          noAdsEl.style.display = 'none';
+          listEl.style.display = 'grid';
+          listEl.innerHTML = '';
+
+          ads.forEach(ad => {
+            if (!ad || typeof ad.id === 'undefined') {
+              return; // Ignora itens inválidos/sem id
+            }
+            const card = document.createElement('article');
+            card.className = 'ad-card';
+            card.dataset.id = ad.id;
+
+            // TORNE O CARD CLICÁVEL PARA REDIRECIONAR PARA DETALHES
+            card.style.cursor = 'pointer';
+            card.onclick = () => {
+              window.location.href = `detalhes.html?id=${ad.id}`;
+            };
+
+            const imgWrap = document.createElement('div');
+            imgWrap.className = 'ad-images';
+            if (ad.images && ad.images.length) {
+              const mainImg = document.createElement('img');
+              mainImg.src = ad.images[0];
+              mainImg.alt = `${ad.marca} ${ad.modelo}`;
+              imgWrap.appendChild(mainImg);
+
+              const thumbs = document.createElement('div');
+              thumbs.className = 'thumbs';
+              ad.images.slice(0, 4).forEach(src => {
+                const t = document.createElement('img');
+                t.src = src;
+                thumbs.appendChild(t);
+              });
+              imgWrap.appendChild(thumbs);
+            } else {
+              const placeholder = document.createElement('div');
+              placeholder.className = 'no-image';
+              placeholder.textContent = 'Sem foto';
+              imgWrap.appendChild(placeholder);
+            }
+
+            const info = document.createElement('div');
+            info.className = 'ad-info';
+
+            const title = document.createElement('h3');
+            title.textContent = `${ad.marca || '-'} ${ad.modelo || '-'}`;
+
+            const preco = document.createElement('div');
+            preco.className = 'preco';
+            preco.textContent = `R$ ${parseFloat(ad.preco || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            preco.style.fontSize = '1.2em';
+            preco.style.fontWeight = 'bold';
+            preco.style.color = '#F57C00';
+            preco.style.marginBottom = '8px';
+
+            const meta = document.createElement('p');
+            meta.className = 'meta';
+            meta.innerHTML = `Ano: ${ad.ano || '-'} • Km: ${ad.quilometragem || '-'} • Cor: ${ad.cor || '-'}`;
+
+            const desc = document.createElement('p');
+            desc.className = 'desc';
+            desc.textContent = ad.descricao || '';
+
+            // Botões de ação (apenas para dono ou admin)
+            const actions = document.createElement('div');
+            actions.className = 'ad-actions';
+            actions.style.marginTop = '15px';
+            actions.style.display = 'flex';
+            actions.style.gap = '10px';
+            actions.style.justifyContent = 'flex-end';
+
+            const usuarioJSON = sessionStorage.getItem('usuarioCorrente');
+            const usuarioAtual = usuarioJSON ? JSON.parse(usuarioJSON) : null;
+
+            // botão favorito (para usuários logados)
+            const favBtn = document.createElement('button');
+            favBtn.className = 'btn-fav';
+            let isFav = usuarioAtual && Array.isArray(usuarioAtual.favorites) && usuarioAtual.favorites.includes(ad.id);
+            if (isFav) favBtn.classList.add('active');
+            favBtn.textContent = isFav ? '♥' : '♡';
+            favBtn.title = isFav ? 'Remover favorito' : 'Adicionar favorito';
+            favBtn.onclick = async (e) => {
+              e.stopPropagation();
+              const userJson = sessionStorage.getItem('usuarioCorrente');
+              if (!userJson) {
+                window.location.href = 'login.html';
+                return;
+              }
+              const user = JSON.parse(userJson);
+              try {
+                const userRes = await fetch(`${API_URL}/users/${user.id}`);
+                if (!userRes.ok) throw new Error('Usuário não encontrado');
+                const userServer = await userRes.json();
+                const favs = userServer.favorites || [];
+                if (favs.includes(ad.id)) {
+                  userServer.favorites = favs.filter(i => i !== ad.id);
+                } else {
+                  userServer.favorites = [...favs, ad.id];
+                }
+                const put = await fetch(`${API_URL}/users/${user.id}`, {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(userServer)
+                });
+                if (!put.ok) throw new Error('Erro ao atualizar favoritos');
+                const updated = await put.json();
+                sessionStorage.setItem('usuarioCorrente', JSON.stringify({
+                  id: updated.id,
+                  name: updated.name,
+                  email: updated.email,
+                  isAdmin: !!updated.isAdmin,
+                  favorites: updated.favorites || []
+                }));
+                const nowFav = (updated.favorites || []).includes(ad.id);
+                favBtn.textContent = nowFav ? '♥' : '♡';
+                favBtn.title = nowFav ? 'Remover favorito' : 'Adicionar favorito';
+                if (nowFav) favBtn.classList.add('active'); else favBtn.classList.remove('active');
+              } catch (err) {
+                console.error(err);
+                alert('Erro ao atualizar favoritos.');
+              }
+            };
+
+            actions.appendChild(favBtn);
+
+            if (usuarioAtual && (usuarioAtual.isAdmin || usuarioAtual.id === ad.userId)) {
+              const editBtn = document.createElement('button');
+              editBtn.textContent = 'Editar';
+              editBtn.className = 'btn-editar';
+              editBtn.onclick = (e) => {
+                e.stopPropagation(); // Impede que o clique no botão redirecione para detalhes
+                editarAnuncio(ad.id);
+              };
+
+              const deleteBtn = document.createElement('button');
+              deleteBtn.textContent = 'Remover';
+              deleteBtn.className = 'btn-remover';
+              deleteBtn.onclick = (e) => {
+                e.stopPropagation(); // Impede que o clique no botão redirecione para detalhes
+                removerAnuncio(ad.id);
+              };
+
+              actions.appendChild(editBtn);
+              actions.appendChild(deleteBtn);
+            }
+
+            info.appendChild(title);
+            info.appendChild(preco);
+            info.appendChild(meta);
+            info.appendChild(desc);
+            info.appendChild(actions);
+
+            card.appendChild(imgWrap);
+            card.appendChild(info);
+
+            listEl.appendChild(card);
+          });
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        loadingEl.style.display = 'none';
+        listEl.style.display = 'none';
+        noAdsEl.innerHTML = '<p>Erro ao carregar anúncios. Tente novamente mais tarde.</p>';
+        noAdsEl.style.display = 'block';
+      }
+    }
+
+    async function removerAnuncio(id) {
+      if (!confirm('Tem certeza que deseja remover este anúncio?')) {
+        return;
+      }
+
+      const usuarioJSON = sessionStorage.getItem('usuarioCorrente');
+      const usuarioAtual = usuarioJSON ? JSON.parse(usuarioJSON) : null;
+      if (!usuarioAtual) {
+        alert('Faça login para remover anúncios.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      try {
+        // verificar dono do anúncio
+        const adRes = await fetch(`${API_URL}/anuncios/${id}`);
+        if (!adRes.ok) throw new Error('Anúncio não encontrado');
+        const ad = await adRes.json();
+
+        if (!usuarioAtual.isAdmin && usuarioAtual.id !== ad.userId) {
+          alert('Você não tem permissão para remover este anúncio.');
+          return;
+        }
+
+        const response = await fetch(`${API_URL}/anuncios/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          throw new Error('Erro ao remover anúncio');
+        }
+
+        alert('Anúncio removido com sucesso!');
+        carregarAnuncios(); // Recarregar a lista
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao remover anúncio. Tente novamente.');
+      }
+    }
+
+    function editarAnuncio(id) {
+      window.location.href = `vender.html?editar=${id}`;
+    }
+
+    // Ligar botões e inicializar página
+    document.addEventListener('DOMContentLoaded', () => {
+      prefillInputsFromUrl();
+
+      if (searchBtn) searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applySearchToUrl();
+        carregarAnuncios();
+      });
+
+      if (clearBtn) clearBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (qInput) qInput.value = '';
+        if (minPriceInput) minPriceInput.value = '';
+        if (maxPriceInput) maxPriceInput.value = '';
+        applySearchToUrl();
+        carregarAnuncios();
+      });
+
+      carregarAnuncios();
+    });
+  </script>
+</body>
+
+</html>

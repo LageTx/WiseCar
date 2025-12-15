@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+  <title>WiseCar - Meu Perfil</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="menu-esquerda">
+      <div class="logo"><a href="index.html"><img src="images/logo.png" alt="logo"></a>
+      </div>
+
+      <nav class="links">
+        <a href="index.html">Início</a>
+        <a href="buscar.html">Buscar</a>
+        <a href="anuncios.html">Anúncios</a>
+        <a href="vender.html">Vender</a>
+        <a href="chat.html">
+          <button class="btn-contato">Entre em contato</button>
+        </a>
+      </nav>
+    </div>
+    <div class="menu-direita">
+      <div class="dados-usuario"><span id="userInfo"></span></div>
+
+      <a href="login.html">
+        <button class="btn-login" id="btnLogin">Login</button>
+      </a>
+      <a href="cadastro.html">
+        <button class="btn-cadastro-header">Cadastro</button>
+      </a>
+
+            <a href="sobre.html">
+        <button class="btn-sobrenos">Sobre nós</button>
+      </a>
+    </div>
+
+  </header>
+
+  <main class="container">
+    <h2 class="page-title">Meu Perfil</h2>
+
+    <section class="perfil-box">
+      <form id="perfilForm" class="perfil-form">
+        <label>Nome</label>
+        <input id="nome" type="text" required />
+
+        <label>E-mail</label>
+        <input id="email" type="email" required />
+
+        <label>Nova senha (deixe em branco para não alterar)</label>
+        <input id="senha" type="password" />
+
+        <button type="submit" class="btn-salvar">Salvar alterações</button>
+      </form>
+    </section>
+
+    <section>
+      <h3>Meus anúncios</h3>
+      <div id="meusAnuncios" class="anuncios-grid"></div>
+      <div id="noMeusAnuncios" style="display:none">Nenhum anúncio encontrado.</div>
+    </section>
+
+    <section>
+      <h3>Favoritos</h3>
+      <div id="favoritosList" class="anuncios-grid"></div>
+      <div id="noFavoritos" style="display:none">Nenhum favorito.</div>
+    </section>
+
+  </main>
+
+ <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-column">
+        <h3>Categorias</h3>
+        <ul>
+          <li><a href="#">Caminhonetes</a></li>
+          <li><a href="#">Elétricos</a></li>
+          <li><a href="#">Hatchbacks</a></li>
+          <li><a href="#">Luxo</a></li>
+          <li><a href="#">Novos</a></li>
+          <li><a href="#">SUVs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Atendimento ao cliente</h3>
+        <ul>
+          <li><a href="chat.html">Contate-nos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Métodos de pagamento</h3>
+        <ul>
+          <li><a>Cartão de crédito</a></li>
+          <li><a>Boleto bancário</a></li>
+          <li><a>Pix</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/login-frontend.js"></script>
+  <script src="assets/js/perfil.js"></script>
+</body>
+
+</html>

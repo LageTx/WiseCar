@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="./images/logo.png  " type="image/x-icon">
+  <title>Wise Car - Filtro</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="menu-esquerda">
+      <div class="logo"><a href="index.html"><img src="images/logo.png" alt="logo"></a>
+      </div>
+
+      <nav class="links">
+        <a href="index.html">Início</a>
+        <a href="buscar.html">Buscar</a>
+        <a href="anuncios.html">Anúncios</a>
+        <a href="vender.html">Vender</a>
+        <a href="chat.html">
+          <button class="btn-contato">Entre em contato</button>
+        </a>
+      </nav>
+    </div>
+    <div class="menu-direita">
+      <div class="dados-usuario"><span id="userInfo"></span></div>
+
+      <a href="login.html">
+        <button class="btn-login" id="btnLogin">Login</button>
+      </a>
+      <a href="cadastro.html">
+        <button class="btn-cadastro-header">Cadastro</button>
+      </a>
+
+            <a href="sobre.html">
+        <button class="btn-sobrenos">Sobre nós</button>
+      </a>
+    </div>
+
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Filtre carros conforme seu perfil</h1>
+        <p class="lead">Responda algumas perguntas rápidas e nós sugerimos os anúncios que mais combinam com você!
+          Espaço, potência, conforto e mais.</p>
+
+      </div>
+      <div class="imagen">
+        <img src="images/imagemfiltro.jpg" alt="imagem ilustrativa">
+        </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="quiz" style="margin-top:28px">
+      <div class="card">
+        <form id="filterForm" onsubmit="event.preventDefault();applyFilters()">
+          <h3 style="margin-bottom:20px">Filtrar carros</h3>
+
+          <div class="row">
+            <div style="flex:1 1 200px">
+              <label>Combustível</label>
+              <select id="combustivel">
+                <option value="">Qualquer um</option>
+                <option value="flex">Flex</option>
+                <option value="gasolina">Gasolina</option>
+                <option value="diesel">Diesel</option>
+                <option value="etanol">Etanol</option>
+                <option value="híbrido">Híbrido</option>
+                <option value="elétrico">Elétrico</option>
+              </select>
+            </div>
+
+            <div style="flex:1 1 200px">
+              <label>Tipo de veículo</label>
+              <select id="tipo">
+                <option value="">Qualquer um</option>
+                <option value="sedan">Sedan</option>
+                <option value="hatch">Hatch</option>
+                <option value="suv">SUV</option>
+                <option value="station">Station</option>
+                <option value="crossover">Crossover</option>
+                <option value="van">Van</option>
+                <option value="pickup">Pickup</option>
+              </select>
+            </div>
+
+            <div style="flex:1 1 200px">
+              <label>Cor</label>
+              <select id="cor">
+                <option value="">Qualquer uma</option>
+                <option value="branco">Branco</option>
+                <option value="preto">Preto</option>
+                <option value="prata">Prata</option>
+                <option value="cinza">Cinza</option>
+                <option value="vermelho">Vermelho</option>
+                <option value="azul">Azul</option>
+                <option value="verde">Verde</option>
+                <option value="bege">Bege</option>
+                <option value="marrom">Marrom</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px">
+            <div style="flex:1 1 200px">
+              <label>Preço mínimo (R$)</label>
+              <input type="number" id="minPrice" placeholder="0" />
+            </div>
+
+            <div style="flex:1 1 200px">
+              <label>Preço máximo (R$)</label>
+              <input type="number" id="maxPrice" placeholder="999999" />
+            </div>
+
+            <div style="flex:1 1 200px">
+              <label>Ano (a partir de)</label>
+              <input type="number" id="minYear" placeholder="2000" min="1980" max="2025" />
+            </div>
+
+            <div style="flex:1 1 200px">
+              <label>Quilometragem máxima</label>
+              <input type="number" id="maxKm" placeholder="200000" />
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;margin-top:20px">
+            <button type="button" class="btn-buscar" onclick="resetForm()">Limpar</button>
+            <button type="submit" class="btn-buscar">Buscar</button>
+          </div>
+      </div>
+      </div>
+
+      <div id="result" class="result" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <strong>Melhores sugestões</strong>
+            <div class="muted">Com base nas suas respostas, veja algumas categorias recomendadas</div>
+          </div>
+          <div id="confidence" class="muted">Confiança: 0%</div>
+        </div>
+
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px" id="suggestions"></div>
+      </div>
+      </form>
+      </div>
+    </section>
+
+  </main>
+   <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-column">
+        <h3>Categorias</h3>
+        <ul>
+          <li><a href="#">Caminhonetes</a></li>
+          <li><a href="#">Elétricos</a></li>
+          <li><a href="#">Hatchbacks</a></li>
+          <li><a href="#">Luxo</a></li>
+          <li><a href="#">Novos</a></li>
+          <li><a href="#">SUVs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Atendimento ao cliente</h3>
+        <ul>
+          <li><a href="chat.html">Contate-nos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Métodos de pagamento</h3>
+        <ul>
+          <li><a>Cartão de crédito</a></li>
+          <li><a>Boleto bancário</a></li>
+          <li><a>Pix</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/login-frontend.js"></script>
+  <script>
+    (function () {
+      const API_URL = window.API_URL || 'https://wise-car-vercel.vercel.app';
+
+      // reativa comportamento e registra listeners
+      const chips = Array.from(document.querySelectorAll('.chip'));
+      const progEl = document.getElementById('prog');
+      const stepEl = document.getElementById('step');
+      if (chips && chips.length) {
+        chips.forEach(c => c.addEventListener('click', e => {
+          e.currentTarget.classList.toggle('active');
+          updateProgress();
+        }));
+      }
+
+      function updateProgress() {
+        const chipsLocal = Array.from(document.querySelectorAll('.chip'));
+        const active = chipsLocal.filter(c => c.classList.contains('active')).length;
+        const percent = Math.min(100, Math.round((active / 8) * 100));
+        if (progEl) progEl.style.width = percent + '%';
+        const step = Math.min(6, 1 + Math.floor(active / 1.5));
+        if (stepEl) stepEl.textContent = step;
+      }
+
+      window.resetForm = function () {
+        const form = document.getElementById('filterForm');
+        if (form) form.reset();
+        Array.from(document.querySelectorAll('.chip')).forEach(c => c.classList.remove('active'));
+        const box = document.getElementById('result'); if (box) box.style.display = 'none';
+        updateProgress();
+      };
+
+      window.applyFilters = async function () {
+        // Obter valores dos inputs diretos
+        const minPrice = Number(document.getElementById('minPrice').value || 0);
+        const maxPrice = Number(document.getElementById('maxPrice').value || 0);
+        const minYear = Number(document.getElementById('minYear').value || 0);
+        const maxKm = Number(document.getElementById('maxKm').value || 0);
+        const combustivelSel = (document.getElementById('combustivel').value || '').toLowerCase().trim();
+        const tipoSel = (document.getElementById('tipo').value || '').toLowerCase().trim();
+        const corSel = (document.getElementById('cor').value || '').toLowerCase().trim();
+
+        // Buscar todos os anúncios com filtro de preço no servidor
+        const serverQ = new URLSearchParams();
+        if (minPrice) serverQ.set('preco_gte', String(minPrice));
+        if (maxPrice) serverQ.set('preco_lte', String(maxPrice));
+
+        const fetchUrl = `${API_URL}/anuncios${serverQ.toString() ? ('?' + serverQ.toString()) : ''}`;
+
+        try {
+          const res = await fetch(fetchUrl);
+          if (!res.ok) throw new Error('Erro ao buscar anúncios');
+          let ads = await res.json();
+
+          // Aplicar filtros estruturados
+          ads = ads.filter(ad => {
+            // Preço
+            if (minPrice && parseFloat(ad.preco || 0) < minPrice) return false;
+            if (maxPrice && parseFloat(ad.preco || 0) > maxPrice) return false;
+
+            // Combustível - match exato
+            if (combustivelSel) {
+              const adFuel = (ad.combustivel || '').toLowerCase().trim();
+              if (!adFuel.includes(combustivelSel)) return false;
+            }
+
+            // Tipo - match exato
+            if (tipoSel) {
+              const adTipo = (ad.tipo || '').toLowerCase().trim();
+              if (!adTipo.includes(tipoSel)) return false;
+            }
+
+            // Cor - match exato
+            if (corSel) {
+              const adCor = (ad.cor || '').toLowerCase().trim();
+              if (!adCor.includes(corSel)) return false;
+            }
+
+            // Ano - maior ou igual ao ano selecionado
+            if (minYear) {
+              const adYear = Number(ad.ano || 0);
+              if (adYear < minYear) return false;
+            }
+
+            // Quilometragem - menor ou igual ao máximo selecionado
+            if (maxKm) {
+              const adKm = Number(ad.quilometragem || 0);
+              if (adKm > maxKm) return false;
+            }
+
+            return true;
+          });
+
+          if (ads.length) {
+            renderAdMatches(ads);
+          } else {
+            // Sem resultados - não mostrar nada
+            const box = document.getElementById('result');
+            if (box) box.style.display = 'none';
+          }
+
+        } catch (err) {
+          console.error(err);
+          // Em caso de erro, também não mostrar sugestões
+          const box = document.getElementById('result');
+          if (box) box.style.display = 'none';
+        }
+      };
+
+
+      function renderResults(items, isFromServer) {
+        const box = document.getElementById('result');
+        const list = document.getElementById('suggestions');
+        const conf = document.getElementById('confidence');
+        list.innerHTML = '';
+
+        // Remover ou atualizar o texto de confiança - agora apenas mostra tipo de resultado
+        if (isFromServer) {
+          conf.textContent = 'Nenhum resultado encontrado';
+        } else {
+          conf.textContent = 'Sugestões automáticas';
+        }
+
+        if (items.length === 0) {
+          list.innerHTML = '<div class="muted">Nenhuma sugestão automática. Tente selecionar mais preferências acima.</div>'
+        }
+        for (const it of items) {
+          const el = document.createElement('div'); el.className = 'suggestion';
+          el.innerHTML = `
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="car-thumb" aria-hidden></div>
+            <div>
+              <div style="font-weight:800">${it.title}</div>
+              <div class="muted" style="font-size:13px">${it.desc}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:center">
+            <button class="btn secondary" style="border-radius:10px">Ver anúncios</button>
+            <div style="font-size:12px;color:#999;margin-top:6px">Ver filtros aplicados</div>
+          </div>
+        `;
+          list.appendChild(el);
+        }
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function renderAdMatches(ads) {
+        const box = document.getElementById('result');
+        const list = document.getElementById('suggestions');
+        const conf = document.getElementById('confidence');
+        list.innerHTML = '';
+
+        // Mostrar apenas o número de carros encontrados - sem "Confiança: X%"
+        conf.textContent = ads.length + ' carro' + (ads.length !== 1 ? 's' : '') + ' encontrado' + (ads.length !== 1 ? 's' : '');
+
+        for (const ad of ads.slice(0, 8)) {
+          const card = document.createElement('div');
+          card.className = 'suggestion';
+          card.innerHTML = `
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="car-thumb" style="width:80px;height:56px;background:#f2f2f2;border-radius:6px;overflow:hidden;">
+              ${ad.images && ad.images[0] ? `<img src="${ad.images[0]}" style="width:100%;height:100%;object-fit:cover;">` : ''}
+            </div>
+            <div>
+              <div style="font-weight:800">${ad.marca || ''} ${ad.modelo || ''}</div>
+              <div class="muted" style="font-size:13px">R$ ${parseFloat(ad.preco || 0).toLocaleString('pt-BR')}</div>
+              <div class="muted" style="font-size:13px">${ad.ano || '-'} • ${ad.quilometragem || '-'} km</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:center">
+            <button class="btn-buscar" style="border-radius:10px" onclick="window.location.href='detalhes.html?id=${ad.id}'">Ver detalhes</button>
+            <a href="anuncios.html" style="font-size:12px;color:#999;margin-top:6px;text-decoration:none">Ver mais anúncios</a>
+          </div>
+        `;
+          list.appendChild(card);
+        }
+
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      updateProgress();
+    })();
+  </script>
+</body>
+
+</html>

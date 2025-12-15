@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./images/logo.png  " type="image/x-icon">
+    <title>Wise Car - Avaliação de Pessoa</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+      /* =========================
+   VARIÁVEIS DE COR
+========================= */
+:root {
+    --cor-primaria: #f59e0b;
+    --cor-primaria-hover: #d97706;
+    --texto-principal: #0f172a;
+    --texto-secundario: #475569;
+    --bg-claro: #f8fafc;
+}
+
+/* =========================
+   BASE
+========================= */
+.ava {
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at top, #fff7ed, #f1f5f9);
+    color: var(--texto-principal);
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    color: var(--texto-principal);
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 18px;
+    transition: color 0.2s;
+}
+
+header a:hover {
+    color: var(--cor-primaria);
+}
+
+header img {
+    height: 42px;
+}
+
+header button {
+    background: var(--cor-primaria);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+header button:hover {
+    background: var(--cor-primaria-hover);
+    box-shadow: 0 8px 18px rgba(245, 158, 11, 0.35);
+    transform: translateY(-1px);
+}
+
+/* =========================
+   TÍTULO
+========================= */
+.h2avaliacao {
+    margin: 48px 0 10px;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+p.subtitulo {
+    text-align: center;
+    color: #64748b;
+}
+
+/* =========================
+   FORMULÁRIO
+========================= */
+.form-container {
+    width: 92%;
+    max-width: 740px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.form-container label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* =========================
+   INPUTS
+========================= */
+input,
+textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    background: var(--bg-claro);
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    font-family: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #94a3b8;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+input[readonly] {
+    background: #e5e7eb;
+    cursor: not-allowed;
+}
+
+/* =========================
+   ESTRELAS
+========================= */
+.estrelas {
+    display: flex;
+    gap: 8px;
+    font-size: 2.2rem;
+    color: var(--cor-primaria);
+    cursor: pointer;
+    margin-bottom: 24px;
+}
+
+.estrelas span {
+    transition: transform 0.2s, color 0.2s;
+}
+
+.estrelas span:hover {
+    transform: scale(1.15);
+}
+
+/* =========================
+   BOTÃO PRINCIPAL
+========================= */
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    border: none;
+    background: var(--cor-primaria);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    background: var(--cor-primaria-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(245, 158, 11, 0.35);
+}
+
+/* =========================
+   LISTA DE AVALIAÇÕES
+========================= */
+.avaliacoes {
+    width: 92%;
+    max-width: 900px;
+    margin: 60px auto;
+}
+
+/* =========================
+   CARD DE AVALIAÇÃO
+========================= */
+.avaliacao-card {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+    border-left: 6px solid var(--cor-primaria);
+    transition: all 0.25s ease;
+}
+
+.avaliacao-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.12);
+}
+
+.avaliacao-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.avaliacao-card .estrelas {
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
+.avaliacao-card p {
+    color: var(--texto-secundario);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* =========================
+   BOTÕES DO CARD
+========================= */
+.botoes-card {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.botoes-card button {
+    width: auto;
+    background: #4b5563;
+    font-size: 0.75rem;
+    padding: 8px 14px;
+    border-radius: 12px;
+}
+
+.botoes-card button:hover {
+    background: #374151;
+}
+
+/* =========================
+   FOOTER (HARMONIZADO)
+========================= */
+.footer {
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    padding: 40px 5%;
+}
+
+.footer h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.footer a {
+    color: #475569;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: var(--cor-primaria);
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 600px) {
+    .h2avaliacao {
+        font-size: 1.6rem;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
+</head>
+
+<body class="ava">
+
+    <header>
+        <div class="menu-esquerda">
+            <div class="logo"><a href="index.html"><img src="images/logo.png" alt="logo"></a>
+            </div>
+
+            <nav class="links">
+                <a href="index.html">Início</a>
+                <a href="buscar.html">Buscar</a>
+                <a href="anuncios.html">Anúncios</a>
+                <a href="vender.html">Vender</a>
+                <a href="chat.html">
+                    <button class="btn-contato">Entre em contato</button>
+                </a>
+            </nav>
+        </div>
+        <div class="menu-direita">
+            <div class="dados-usuario"><span id="userInfo"></span></div>
+
+            <a href="login.html">
+                <button class="btn-login" id="btnLogin">Login</button>
+            </a>
+            <a href="cadastro.html">
+                <button class="btn-cadastro-header">Cadastro</button>
+            </a>
+
+            <a href="sobre.html">
+                <button class="btn-sobrenos">Sobre nós</button>
+            </a>
+        </div>
+
+    </header>
+    <h2 class="h2avaliacao">AVALIAÇÃO DE PESSOA</h2>
+
+
+    <div class="form-container" id="formContainer">
+        <label for="avaliado">Nome da pessoa avaliada:</label>
+        <input type="text" id="avaliado" placeholder="Digite o nome da pessoa..." />
+
+
+        <label>Nota:</label>
+        <div class="estrelas" id="estrelasForm"></div>
+
+        <label for="comentario">Comentário:</label>
+        <textarea id="comentario" placeholder="Escreva seu feedback..."></textarea>
+
+        <button id="btnSalvar">Salvar Avaliação</button>
+    </div>
+
+    <div class="avaliacoes" id="listaAvaliacoes"></div>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/login-frontend.js"></script>
+    <script src="assets/js/avaliacao.js"></script>
+</body>
+
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-column">
+      <h3>Categorias</h3>
+      <ul>
+        <li><a href="#">Caminhonetes</a></li>
+        <li><a href="#">Elétricos</a></li>
+        <li><a href="#">Hatchbacks</a></li>
+        <li><a href="#">Luxo</a></li>
+        <li><a href="#">Novos</a></li>
+        <li><a href="#">SUVs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Atendimento ao cliente</h3>
+      <ul>
+        <li><a href="chat.html">Contate-nos</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Métodos de pagamento</h3>
+      <ul>
+        <li><a>Cartão de crédito</a></li>
+        <li><a>Boleto bancário</a></li>
+        <li><a>Pix</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
+
+</html>

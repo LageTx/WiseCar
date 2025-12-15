@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+  <title>Wise Car - Buscar Veículo</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .buscar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+      text-align: center;
+    }
+
+    .btn-buscar {
+      background-color: #F57C00;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 20px;
+    }
+
+    .btn-buscar:hover {
+      background-color: #d86800;
+    }
+
+    .campo-pesquisa {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .campo-pesquisa input {
+      padding: 14px 20px;
+      width: 400px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .campo-pesquisa button {
+      margin-left: 10px;
+      padding: 12px 20px;
+      background-color: #E86E00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 18px;
+    }
+
+    .campo-pesquisa button:hover {
+      background-color: #d25e00;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="menu-esquerda">
+      <div class="logo"><a href="index.html"><img src="images/logo.png" alt="logo"></a>
+      </div>
+
+      <nav class="links">
+        <a href="index.html">Início</a>
+        <a href="buscar.html">Buscar</a>
+        <a href="anuncios.html">Anúncios</a>
+        <a href="vender.html">Vender</a>
+        <a href="chat.html">
+          <button class="btn-contato">Entre em contato</button>
+        </a>
+      </nav>
+    </div>
+    <div class="menu-direita">
+      <div class="dados-usuario"><span id="userInfo"></span></div>
+
+      <a href="login.html">
+        <button class="btn-login" id="btnLogin">Login</button>
+      </a>
+      <a href="cadastro.html">
+        <button class="btn-cadastro-header">Cadastro</button>
+      </a>
+
+            <a href="sobre.html">
+        <button class="btn-sobrenos">Sobre nós</button>
+      </a>
+    </div>
+
+  </header>
+
+  <main class="buscar-container">
+    <h1>Pesquise aqui um veículo específico!</h1>
+    <p>Clique no botão abaixo para iniciar sua busca de anúncios.</p>
+
+    <button class="btn-buscar" id="btnBuscar">Buscar veículo</button>
+
+    <div class="campo-pesquisa" id="campoPesquisa">
+      <input type="text" id="inputCarro" placeholder="Digite o nome do veículo (Ex: Hilux)">
+      <button id="btnProcurar">Procurar</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-column">
+        <h3>Categorias</h3>
+        <ul>
+          <li><a href="#">Caminhonetes</a></li>
+          <li><a href="#">Elétricos</a></li>
+          <li><a href="#">Hatchbacks</a></li>
+          <li><a href="#">Luxo</a></li>
+          <li><a href="#">Novos</a></li>
+          <li><a href="#">SUVs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Atendimento ao cliente</h3>
+        <ul>
+          <li><a href="chat.html">Contate-nos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Métodos de pagamento</h3>
+        <ul>
+          <li><a>Cartão de crédito</a></li>
+          <li><a>Boleto bancário</a></li>
+          <li><a>Pix</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </footer>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/login-frontend.js"></script>
+  <script>
+    const btnBuscar = document.getElementById('btnBuscar');
+    const campoPesquisa = document.getElementById('campoPesquisa');
+    const btnProcurar = document.getElementById('btnProcurar');
+    const inputCarro = document.getElementById('inputCarro');
+
+    btnBuscar.addEventListener('click', () => {
+      campoPesquisa.style.display = 'block';
+      btnBuscar.style.display = 'none';
+    });
+
+    btnProcurar.addEventListener('click', () => {
+      const carro = inputCarro.value.trim();
+      if (carro) {
+
+        const parametro = encodeURIComponent(carro);
+        window.location.href = `anuncios.html?carro=${parametro}`;
+      } else {
+        alert('Por favor, digite o nome de um veículo antes de procurar.');
+      }
+    });
+  </script>
+</body>
+
+</html>
